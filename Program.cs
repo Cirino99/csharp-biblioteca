@@ -81,7 +81,22 @@ public class Biblioteca
 
     public void Registrazione(string nome, string cognome)
     {
-        utenti.Add(new Utente(nome, cognome));
+        bool registrato = false;
+        Console.WriteLine();
+        foreach (Utente utente in utenti)
+        {
+            if(utente.Nome == nome && utente.Cognome == cognome)
+            {
+                Console.WriteLine("Utente già registrato");
+                registrato = true;
+                break;
+            }
+        }
+        if (!registrato)
+        {
+            utenti.Add(new Utente(nome, cognome));
+            Console.WriteLine("Utente registrato correttamente");
+        }
     }
 
     public string RicercaDocumento(string dato)
@@ -99,6 +114,7 @@ public class Biblioteca
     public void NuovoPrestito(string dato, string nome, string cognome)
     {
         bool prestito = false;
+        Console.WriteLine();
         foreach (Utente utente in utenti)
         {
             if (utente.Nome == nome && utente.Cognome == cognome)
@@ -128,10 +144,12 @@ public class Biblioteca
 
     public void ElencoPrestiti(string nome, string cognome) {
         bool trovato = false;
+        Console.WriteLine();
         foreach (Utente utente in utenti)
         {
             if (utente.Nome == nome && utente.Cognome == cognome)
             {
+                Console.WriteLine("Elenco Presti:");
                 foreach(Prestito prestito in utente.prestiti)
                 {
                     Console.WriteLine("Documento con codice: {0}, preso {1}, restituito {2}",prestito.Codice,prestito.Inizio,prestito.Fine);
